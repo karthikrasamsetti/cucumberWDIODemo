@@ -331,28 +331,28 @@ exports.config = {
     */
     // afterAssertion: function(params) {
     // }
-    // before: function (capabilities, specs) {
-    //     // Clean the existing Allure results directory before running the tests
-    //     const allureResultsPath = join(process.cwd(), 'allure-results');
-    //     const fs = require('fs');
+    before: function (capabilities, specs) {
+        // Clean the existing Allure results directory before running the tests
+        const allureResultsPath = join(process.cwd(), 'allure-results');
+        const fs = require('fs');
 
-    //     try {
-    //         if (fs.existsSync(allureResultsPath)) {
-    //             fs.rmdirSync(allureResultsPath, { recursive: true });
-    //         }
-    //     } catch (error) {
-    //         console.error('Error cleaning Allure results directory:', error);
-    //     }
-    // },
+        try {
+            if (fs.existsSync(allureResultsPath)) {
+                fs.rmdirSync(allureResultsPath, { recursive: true });
+            }
+        } catch (error) {
+            console.error('Error cleaning Allure results directory:', error);
+        }
+    },
 
-    // onComplete: function () {
-    //     // Generate Allure report after all tests are completed
-    //     const execSync = require('child_process').execSync;
+    onComplete: function () {
+        // Generate Allure report after all tests are completed
+        const execSync = require('child_process').execSync;
 
-    //     try {
-    //         execSync('allure generate allure-results --clean', { stdio: 'inherit' });
-    //     } catch (error) {
-    //         console.error('Error generating Allure report:', error);
-    //     }
-    // }
+        try {
+            execSync('allure generate allure-results --clean', { stdio: 'inherit' });
+        } catch (error) {
+            console.error('Error generating Allure report:', error);
+        }
+    }
 }
